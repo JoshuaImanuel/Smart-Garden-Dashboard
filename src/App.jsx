@@ -58,7 +58,7 @@ function App() {
   return (
     <div className="p-4 sm:p-8 font-sans bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-3xl sm:text-4xl font-extrabold mb-8 text-emerald-800 drop-shadow-sm flex items-center gap-3">
-        <span className="text-4xl">🌱</span> Kebun Pintar Beluga
+        <span className="text-4xl">🌱</span> Kebun Pintar
       </h1>
       
       <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl max-w-md w-full border border-emerald-50">
@@ -130,7 +130,7 @@ function App() {
           disabled={modeOperasional === 1}
           className={`w-full py-4 text-white text-lg font-bold rounded-2xl transition-all shadow-lg transform active:scale-95 flex justify-center items-center gap-2 ${modeOperasional === 1 ? 'bg-gray-300 cursor-not-allowed shadow-none' : (statusPompa === 0 ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 hover:shadow-blue-200' : 'bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 hover:shadow-rose-200')}`}
         >
-          {modeOperasional === 1 ? "🤖 Sedang Otomatis" : (statusPompa === 0 ? "🚀 Nyalakan Pompa" : "🛑 Matikan Pompa")}
+          {modeOperasional === 1 ? "🤖 Sedang Otomatis" : (statusPompa === 0 ? "🚿 Nyalakan Pompa" : "🛑 Matikan Pompa")}
         </button>
       </div>
     </div>
