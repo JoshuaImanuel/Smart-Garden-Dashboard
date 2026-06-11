@@ -7,17 +7,22 @@ function App() {
   const [kelembaban, setKelembaban] = useState(0);
   const [statusPompa, setStatusPompa] = useState(0);
   const [modeOperasional, setModeOperasional] = useState(0);
+  const [intervalMenyiram, setIntervalMenyiram] = useState(5);
 
   useEffect(() => {
     const referensiSuhu = ref(database, 'KebunPintar/Suhu');
     const referensiKelembaban = ref(database, 'KebunPintar/KelembabanTanah');
     const referensiPompa = ref(database, 'KebunPintar/StatusPompa');
     const referensiMode = ref(database, 'KebunPintar/Mode');
+    const referensiInterval = ref(database, 'KebunPintar/Interval');
 
     onValue(referensiSuhu, (snapshot) => setSuhu(snapshot.val()));
     onValue(referensiKelembaban, (snapshot) => setKelembaban(snapshot.val()));
     onValue(referensiPompa, (snapshot) => setStatusPompa(snapshot.val()));
     onValue(referensiMode, (snapshot) => setModeOperasional(snapshot.val()));
+    onValue(referensiInterval, (snapshot) => {
+      if (snapshot.exists()) setIntervalMenyiram(snapshot.val());
+    });
   }, []);
 
   const kendalikanPompa = () => {
@@ -31,9 +36,16 @@ function App() {
     set(referensiMode, modeOperasional === 0 ? 1 : 0);
   };
 
+  const ubahInterval = (e) => {
+    const nilaiBaru = parseInt(e.target.value);
+    setIntervalMenyiram(nilaiBaru);
+    const referensiInterval = ref(database, 'KebunPintar/Interval');
+    set(referensiInterval, nilaiBaru);
+  };
+
   return (
     <div className="p-8 font-sans bg-gray-50 min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Dasbor Beluga Smart Garden</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Dasbor Smart Garden</h1>
       <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full border border-gray-100">
         
         <div className="flex justify-between items-center mb-6 border-b pb-4">
@@ -45,6 +57,22 @@ function App() {
             {modeOperasional === 1 ? "Otomatis" : "Manual"}
           </button>
         </div>
+
+        {modeOperasional === 1 && (
+          <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg mb-4 border border-purple-100 transition-all">
+            <span className="text-purple-950 font-medium text-sm">Durasi Siklus Jeda</span>
+            <select
+              value={intervalMenyiram}
+              onChange={ubahInterval}
+              className="bg-white border border-purple-300 rounded px-3 py-1 text-sm font-bold text-purple-700 outline-none focus:ring-2 focus:ring-purple-400"
+            >
+              <option value={5}>5 Detik</option>
+              <option value={10}>10 Detik</option>
+              <option value={30}>30 Detik</option>
+              <option value={60}>1 Menit</option>
+            </select>
+          </div>
+        )}
 
         <div className="space-y-4 mb-6">
           <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
@@ -68,7 +96,7 @@ function App() {
           disabled={modeOperasional === 1}
           className={`w-full py-3 text-white font-semibold rounded-lg transition-colors shadow-sm ${modeOperasional === 1 ? 'bg-gray-400 cursor-not-allowed' : (statusPompa === 0 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-rose-600 hover:bg-rose-700')}`}
         >
-          {modeOperasional === 1 ? "Dikendalikan Sensor" : (statusPompa === 0 ? "Nyalakan Pompa" : "Matikan Pompa")}
+          {modeOperasional === 1 ? "Dikendalikan Timer" : (statusPompa === 0 ? "Nyalakan Pompa" : "Matikan Pompa")}
         </button>
       </div>
     </div>
