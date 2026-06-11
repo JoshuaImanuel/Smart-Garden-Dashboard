@@ -56,28 +56,33 @@ function App() {
   };
 
   return (
-    <div className="p-8 font-sans bg-gray-50 min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Dasbor Smart Garden</h1>
-      <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full border border-gray-100">
+    <div className="p-4 sm:p-8 font-sans bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-3xl sm:text-4xl font-extrabold mb-8 text-emerald-800 drop-shadow-sm flex items-center gap-3">
+        <span className="text-4xl">🌱</span> Kebun Pintar Beluga
+      </h1>
+      
+      <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl max-w-md w-full border border-emerald-50">
         
-        <div className="flex justify-between items-center mb-6 border-b pb-4">
-          <span className="text-lg font-bold text-gray-700">Mode Sistem</span>
+        <div className="flex justify-between items-center mb-6 border-b-2 border-gray-100 pb-5">
+          <span className="text-lg font-bold text-gray-700 flex items-center gap-2">
+            🎛️ Mode Sistem
+          </span>
           <button
             onClick={ubahMode}
-            className={`px-4 py-2 font-bold rounded-lg transition-colors ${modeOperasional === 1 ? 'bg-purple-100 text-purple-700 hover:bg-purple-200' : 'bg-orange-100 text-orange-700 hover:bg-orange-200'}`}
+            className={`px-5 py-2.5 font-bold rounded-2xl transition-all shadow-sm transform hover:scale-105 active:scale-95 ${modeOperasional === 1 ? 'bg-purple-100 text-purple-700 hover:bg-purple-200 ring-2 ring-purple-300' : 'bg-orange-100 text-orange-700 hover:bg-orange-200 ring-2 ring-orange-300'}`}
           >
-            {modeOperasional === 1 ? "Otomatis" : "Manual"}
+            {modeOperasional === 1 ? "🤖 Otomatis" : "🖐️ Manual"}
           </button>
         </div>
 
         {modeOperasional === 1 && (
-          <div className="space-y-3 mb-6">
-            <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-100 transition-all">
-              <span className="text-purple-950 font-medium text-sm">Durasi Siklus Jeda</span>
+          <div className="space-y-4 mb-8 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+            <div className="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-purple-50 transition-all hover:shadow-md">
+              <span className="text-purple-900 font-semibold text-sm flex items-center gap-2">⏱️ Siklus Jeda</span>
               <select
                 value={intervalMenyiram}
                 onChange={ubahInterval}
-                className="bg-white border border-purple-300 rounded px-3 py-1 text-sm font-bold text-purple-700 outline-none focus:ring-2 focus:ring-purple-400"
+                className="bg-purple-50 border border-purple-200 rounded-lg px-3 py-1.5 text-sm font-bold text-purple-700 outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer"
               >
                 <option value={5}>5 Detik</option>
                 <option value={60}>1 Menit</option>
@@ -86,12 +91,12 @@ function App() {
                 <option value={3600}>1 Jam</option>
               </select>
             </div>
-            <div className="flex justify-between items-center p-3 bg-indigo-50 rounded-lg border border-indigo-100 transition-all">
-              <span className="text-indigo-950 font-medium text-sm">Pompa Menyala Selama</span>
+            <div className="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-indigo-50 transition-all hover:shadow-md">
+              <span className="text-indigo-900 font-semibold text-sm flex items-center gap-2">⏳ Pompa Menyala</span>
               <select
                 value={durasiMenyiram}
                 onChange={ubahDurasi}
-                className="bg-white border border-indigo-300 rounded px-3 py-1 text-sm font-bold text-indigo-700 outline-none focus:ring-2 focus:ring-indigo-400"
+                className="bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-1.5 text-sm font-bold text-indigo-700 outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
               >
                 <option value={3}>3 Detik</option>
                 <option value={5}>5 Detik</option>
@@ -103,19 +108,19 @@ function App() {
           </div>
         )}
 
-        <div className="space-y-4 mb-6">
-          <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-            <span className="text-gray-600 font-medium">Suhu Lingkungan</span>
-            <span className="text-xl font-bold text-blue-600">{suhu} °C</span>
+        <div className="space-y-4 mb-8">
+          <div className="flex justify-between items-center p-4 bg-blue-50 rounded-2xl shadow-inner border border-blue-100 transform transition-all hover:scale-[1.02]">
+            <span className="text-blue-900 font-semibold flex items-center gap-2">🌡️ Suhu Udara</span>
+            <span className="text-2xl font-black text-blue-600">{suhu} °C</span>
           </div>
-          <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-            <span className="text-gray-600 font-medium">Kelembaban Tanah</span>
-            <span className="text-xl font-bold text-green-600">{kelembaban} %</span>
+          <div className="flex justify-between items-center p-4 bg-green-50 rounded-2xl shadow-inner border border-green-100 transform transition-all hover:scale-[1.02]">
+            <span className="text-green-900 font-semibold flex items-center gap-2">💧 Kelembaban</span>
+            <span className="text-2xl font-black text-green-600">{kelembaban} %</span>
           </div>
-          <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <span className="text-gray-600 font-medium">Status Mesin Air</span>
-            <span className={`text-md font-bold px-3 py-1 rounded-full ${statusPompa === 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
-              {statusPompa === 1 ? "Menyala" : "Mati"}
+          <div className="flex justify-between items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+            <span className="text-gray-700 font-semibold flex items-center gap-2">⚙️ Status Pompa</span>
+            <span className={`text-sm font-bold px-4 py-1.5 rounded-full shadow-sm ${statusPompa === 1 ? 'bg-emerald-500 text-white animate-pulse' : 'bg-rose-100 text-rose-700'}`}>
+              {statusPompa === 1 ? "💦 Menyala" : "💤 Mati"}
             </span>
           </div>
         </div>
@@ -123,9 +128,9 @@ function App() {
         <button 
           onClick={kendalikanPompa} 
           disabled={modeOperasional === 1}
-          className={`w-full py-3 text-white font-semibold rounded-lg transition-colors shadow-sm ${modeOperasional === 1 ? 'bg-gray-400 cursor-not-allowed' : (statusPompa === 0 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-rose-600 hover:bg-rose-700')}`}
+          className={`w-full py-4 text-white text-lg font-bold rounded-2xl transition-all shadow-lg transform active:scale-95 flex justify-center items-center gap-2 ${modeOperasional === 1 ? 'bg-gray-300 cursor-not-allowed shadow-none' : (statusPompa === 0 ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 hover:shadow-blue-200' : 'bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 hover:shadow-rose-200')}`}
         >
-          {modeOperasional === 1 ? "Dikendalikan Timer" : (statusPompa === 0 ? "Nyalakan Pompa" : "Matikan Pompa")}
+          {modeOperasional === 1 ? "🤖 Sedang Otomatis" : (statusPompa === 0 ? "🚀 Nyalakan Pompa" : "🛑 Matikan Pompa")}
         </button>
       </div>
     </div>
