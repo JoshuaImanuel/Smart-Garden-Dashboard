@@ -8,7 +8,6 @@ function App() {
   const [statusPompa, setStatusPompa] = useState(0);
   const [modeOperasional, setModeOperasional] = useState(0);
   const [intervalMenyiram, setIntervalMenyiram] = useState(5);
-  const [durasiMenyiram, setDurasiMenyiram] = useState(3);
 
   useEffect(() => {
     const referensiSuhu = ref(database, 'KebunPintar/Suhu');
@@ -16,7 +15,6 @@ function App() {
     const referensiPompa = ref(database, 'KebunPintar/StatusPompa');
     const referensiMode = ref(database, 'KebunPintar/Mode');
     const referensiInterval = ref(database, 'KebunPintar/Interval');
-    const referensiDurasi = ref(database, 'KebunPintar/Durasi');
 
     onValue(referensiSuhu, (snapshot) => setSuhu(snapshot.val()));
     onValue(referensiKelembaban, (snapshot) => setKelembaban(snapshot.val()));
@@ -24,9 +22,6 @@ function App() {
     onValue(referensiMode, (snapshot) => setModeOperasional(snapshot.val()));
     onValue(referensiInterval, (snapshot) => {
       if (snapshot.exists()) setIntervalMenyiram(snapshot.val());
-    });
-    onValue(referensiDurasi, (snapshot) => {
-      if (snapshot.exists()) setDurasiMenyiram(snapshot.val());
     });
   }, []);
 
@@ -46,13 +41,6 @@ function App() {
     setIntervalMenyiram(nilaiBaru);
     const referensiInterval = ref(database, 'KebunPintar/Interval');
     set(referensiInterval, nilaiBaru);
-  };
-
-  const ubahDurasi = (e) => {
-    const nilaiBaru = parseInt(e.target.value);
-    setDurasiMenyiram(nilaiBaru);
-    const referensiDurasi = ref(database, 'KebunPintar/Durasi');
-    set(referensiDurasi, nilaiBaru);
   };
 
   return (
@@ -89,20 +77,6 @@ function App() {
                 <option value={300}>5 Menit</option>
                 <option value={1800}>30 Menit</option>
                 <option value={3600}>1 Jam</option>
-              </select>
-            </div>
-            <div className="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-indigo-50 transition-all hover:shadow-md">
-              <span className="text-indigo-900 font-semibold text-sm flex items-center gap-2">⏳ Pompa Menyala</span>
-              <select
-                value={durasiMenyiram}
-                onChange={ubahDurasi}
-                className="bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-1.5 text-sm font-bold text-indigo-700 outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
-              >
-                <option value={3}>3 Detik</option>
-                <option value={5}>5 Detik</option>
-                <option value={10}>10 Detik</option>
-                <option value={15}>15 Detik</option>
-                <option value={30}>30 Detik</option>
               </select>
             </div>
           </div>
